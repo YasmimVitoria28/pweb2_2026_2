@@ -11,6 +11,6 @@ class AlunoController extends Controller
     {
         $dados = Aluno::all();
 
-        return view('aluno.list',['dados',$dados]);
+        return view('aluno.list')->with(['dados',$dados]);
     }
 }

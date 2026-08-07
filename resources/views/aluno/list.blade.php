@@ -1,3 +1,7 @@
+@extends ('main')
+@section('titulo', 'Listagem de Alunos')
+@section('conteudo')
+
 <div class="row">
 
     <h3>Listagem de Usuário</h3>
@@ -38,25 +42,26 @@
             </tr>
         </thead>
         <tbody>
-            <?php
-            foreach ($dados as $item) {
-                echo "<tr>
-                <th scope='row'>$item->id</th>
-                <td>$item->nome</td>
-                <td>$item->telefone</td>
-                <td>$item->email</td>
-                <td>
-                    <a class='btn btn-warning' title='Editar'
-                        href='./UsuarioForm.php?id=$item->id'>Editar</a>
-                </td>
-                <td>
-                    <a class='btn btn-danger' title='Exclur'
-                        onclick='return confirm(\"Deseja Excluir?\")'
-                        href='./UsuarioList.php?id=$item->id'>Deletar</a>
-                </td>
-            </tr>";
-            }
-            ?>
+            
+            @foreach ($dados as $item) 
+    <tr>
+        <th scope='row'>{{ $item->id }}</th>
+        <td>{{ $item->nome }}</td>
+        <td>{{ $item->telefone }}</td>
+        <td>{{ $item->email }}</td>
+        <td>
+            <a class='btn btn-warning' title='Editar'
+                href='./UsuarioForm.php?id={{ $item->id }}'>Editar</a>
+        </td>
+        <td>
+            <a class='btn btn-danger' title='Excluir'
+                onclick="return confirm('Deseja Excluir?')"
+                href='./UsuarioList.php?id={{ $item->id }}'>Deletar</a>
+        </td>
+    </tr>
+@endforeach
+            
         </tbody>
     </table>
 </div>
+@stop

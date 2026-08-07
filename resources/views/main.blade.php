@@ -8,7 +8,7 @@
   </head> 
 
   <body>
-    <h3> relo ordi </h3>
+    <h3> Hello word </h3>
     <div> 
         @include ('sidebar')
     </div>
