@@ -9,6 +9,7 @@ Route::get('/', function () {
 
 Route::get('/aluno', [AlunoController::class, 'index']);
 Route::get('/aluno/create', [AlunoController::class, 'create']);
+Route::post('/aluno/store', [AlunoController::class, 'store'])-> name('aluno.store');
 
 /*
 Route::get('/aluno', function () {

@@ -12,7 +12,7 @@
                 <select name="tipo" class="form-select">
                     <option value="nome">Nome</option>
                     <option value="telefone">Telefone</option>
-                    <option value="email">Email</option>
+                    <option value="CPF">CPF</option>
                 </select>
             </div>
             <div class="col-5">
@@ -36,31 +36,30 @@
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Telefone</th>
-                <th scope="col">Email</th>
+                <th scope="col">CPF</th>
                 <th scope="col">Ação</th>
                 <th scope="col">Ação</th>
             </tr>
         </thead>
         <tbody>
-            
-            @foreach ($dados as $item) 
-    <tr>
-        <th scope='row'>{{ $item->id }}</th>
-        <td>{{ $item->nome }}</td>
-        <td>{{ $item->telefone }}</td>
-        <td>{{ $item->email }}</td>
-        <td>
-            <a class='btn btn-warning' title='Editar'
-                href='./UsuarioForm.php?id={{ $item->id }}'>Editar</a>
-        </td>
-        <td>
-            <a class='btn btn-danger' title='Excluir'
-                onclick="return confirm('Deseja Excluir?')"
-                href='./UsuarioList.php?id={{ $item->id }}'>Deletar</a>
-        </td>
-    </tr>
-@endforeach
-            
+            @foreach ($dados as $item)
+            <tr>
+                <th scope='row'>{{ $item->id }}</th>
+                <td>{{ $item->nome }}</td>
+                <td>{{ $item->telefone }}</td>
+                <td>{{ $item->CPF }}</td>
+                <td>
+                    <a class='btn btn-warning' title='Editar'
+                        href='./UsuarioForm.php?id={{ $item->id }}'>Editar</a>
+                </td>
+                <td>
+                    <a class='btn btn-danger' title='Excluir'
+                        onclick="return confirm('Deseja Excluir?')"
+                        href='./UsuarioList.php?id={{ $item->id }}'>Deletar</a>
+                </td>
+            </tr>
+            @endforeach
+
         </tbody>
     </table>
 </div>

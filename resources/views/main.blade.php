@@ -13,7 +13,7 @@
         @include ('sidebar')
     </div>
 
-    <main> 
+    <main class="container"> 
         @yield ('conteudo')
     </main>
 
