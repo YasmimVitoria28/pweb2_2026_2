@@ -17,7 +17,7 @@ class CursoFactory extends Factory
      */
     public function definition(): array
     {
-        return  [
+        return [
             'nome' => fake()->name(),
             'requisito' => fake()->sentence(1, 10),
             'carga_horaria' => fake()->randomFloat(2, 20, 120),

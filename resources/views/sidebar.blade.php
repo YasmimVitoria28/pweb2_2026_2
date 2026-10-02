@@ -10,19 +10,21 @@
           <a class="nav-link active" aria-current="page" href="#">Início</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url ('aluno')}}">Aluno</a>
+          <a class="nav-link" href="{{ url('aluno') }}">Aluno</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url ('turma')}}">Turma</a>
+          <a class="nav-link" href="{{ url('curso') }}">Curso</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url ('matricula')}}">Matricula</a>
+          <a class="nav-link" href="{{ url('turma') }}">Turma</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('matricula') }}">Matricula</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-    
     </div>
   </div>
 </nav>

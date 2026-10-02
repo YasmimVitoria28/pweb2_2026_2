@@ -4,17 +4,17 @@ namespace Database\Factories;
 
 use App\Models\Aluno;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\CategoriaAluno;
 
 class AlunoFactory extends Factory
 {
-
     public function definition(): array
     {
         return [
-            'nome' => fake()->name(), //fake: cria um registro falso, dados falsos
+            'nome' => fake()->name(),
+            'cpf' => fake()->numerify('###.###.###-##'),
             'telefone' => fake()->phoneNumber(),
-            'cpf' => fake()->numerify(string: '###.###.###-##'),
+            'categoria_id' => (CategoriaAluno::All()->random())->id,
         ];
     }
 }

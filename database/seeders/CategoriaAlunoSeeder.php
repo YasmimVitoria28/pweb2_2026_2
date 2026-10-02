@@ -4,15 +4,15 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Turma;
+use App\Models\CategoriaAluno;
 
-class TurmaSeeder extends Seeder
+class CategoriaAlunoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-           Turma::factory()->count(6)->create();
+        CategoriaAluno::factory()->count(4)->create();
     }
 }

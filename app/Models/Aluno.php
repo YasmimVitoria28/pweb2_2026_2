@@ -7,10 +7,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Aluno extends Model
 {
-    use HasFactory;
+    use Hasfactory;
+
     protected $fillable = [
         'nome',
-        'CPF',
-        'telefone'
+        'cpf',
+        'telefone',
+        'imagem',
+        'categoria_id',
     ];
+
+    protected $cast = [
+        'categoria_id' => 'integer'
+    ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(CategoriaAluno::class, 'categoria_id');
+    }
 }

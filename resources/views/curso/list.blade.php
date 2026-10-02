@@ -35,9 +35,9 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">CPF</th>
-                    <th scope="col">Telefone</th>
-                    <th scope="col">Categoria</th>
+                    <th scope="col">Requisito</th>
+                    <th scope="col">Carga Horária</th>
+                    <th scope="col">Valor</th>
                     <th scope="col">Ação</th>
                     <th scope="col">Ação</th>
                 </tr>
@@ -58,7 +58,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class='btn btn-danger' title='Exclur'
-                                    onclick='return confirm("Deseja Excluir?")'>Deletar</button>
+                                    onclick="return confirm('Deseja Excluir?')">Deletar</button>
                             </form>
                         </td>
                     </tr>
