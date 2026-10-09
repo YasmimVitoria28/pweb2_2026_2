@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Charts\CursoChart;
 use App\Models\Curso;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+
+
 class CursoController extends Controller
 {
     public function index()
@@ -19,7 +21,7 @@ class CursoController extends Controller
         return view('curso.form');
     }
 
-
+3+
     function validateForm(Request $request)
     {
         $request->validate([
@@ -107,5 +109,10 @@ class CursoController extends Controller
         ];       
         $pdf = PDF::loadView('curso.report', $data);
         return $pdf->download('itsolutionstuff.pdf');
+    }
+
+    public function chart(CursoChart $chart)
+    {
+        return view('curso.chart', ['chart'=>chart->build()]);
     }
 }
