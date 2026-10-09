@@ -1,35 +1,14 @@
-@extends('main')
-@section('titulo', 'Listagem de Cursos')
-@section('conteudo')
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laravel 9 Generate PDF Example - ItSolutionStuff.com</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
     <div class="row">
 
         <h3>Listagem de Cursos</h3>
-        <form action="{{ route('curso.search') }}" method="post">
-            @csrf
-            <div class="row">
-                <div class="col-2">
-                    <label for="nome">Tipo</label>
-                    <select name="tipo" class="form-select">
-                        <option value="nome">Nome</option>
-                        <option value="cpf">CPF</option>
-                        <option value="telefone">Telefone</option>
-                    </select>
-                </div>
-                <div class="col-5">
-                    <label for="valor">Valor</label>
-                    <input type="text" name="valor" placeholder="Pesquisar..." class="form-control">
-                </div>
-                <div class="col-5">
-                    <button type="submit" class="btn btn-primary">Buscar</button>
-                    <a href="{{ url('curso/create') }}" class="btn btn-success"> Novo</a>
-                    <a href="{{ url('curso/report') }}" class="btn btn-success"> Relatório</a>
-                </div>
-            </div>
-        </form>
-
     </div>
-
-
     <div class="row mt-4">
         <table class="table table-striped table-hover">
             <thead>
@@ -67,8 +46,9 @@
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                
             </tbody>
         </table>
     </div>
-@stop
+</body>
+</html>
