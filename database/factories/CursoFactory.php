@@ -21,7 +21,7 @@ class CursoFactory extends Factory
             'nome' => fake()->name(),
             'requisito' => fake()->sentence(1, 10),
             'carga_horaria' => fake()->randomFloat(2, 20, 120),
-            'valor' => fake()->randomFloat(2, 10, 10000),
+            'valor' => fake()->randomFloat(2, 10, 1000),
         ];
     }
 }

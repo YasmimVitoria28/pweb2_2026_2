@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Turma;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Turma;
 
 class TurmaSeeder extends Seeder
 {
@@ -13,6 +13,6 @@ class TurmaSeeder extends Seeder
      */
     public function run(): void
     {
-        Turma::factory()->count(6)->create();
+           Turma::factory()->count(6)->create();
     }
 }

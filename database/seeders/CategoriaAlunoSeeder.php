@@ -11,7 +11,7 @@ class CategoriaAlunoSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-        public function run(): void
+    public function run(): void
     {
         CategoriaAluno::factory()->count(4)->create();
     }

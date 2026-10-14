@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CategoriaAluno extends Model
 {
     /** @use HasFactory<\Database\Factories\CategoriaAlunoFactory> */
-    use HasFactory;
+    use Hasfactory;
 
-      protected $fillable = [
+    protected $fillable = [
         'nome',
-        'nivel',
+        'nivel'
     ];
 }

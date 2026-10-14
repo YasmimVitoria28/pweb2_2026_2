@@ -2,25 +2,27 @@
 
 namespace App\Charts;
 
+use App\Models\Curso;
+
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
-class Cursochart
+class CursoChart
 {
     public function build(): \ArielMejiaDev\LarapexCharts\PieChart
     {
-
         $cursos = Curso::all();
-        //dd($cursos);
-        $qtdTurmas=[];
+
+        $qtdTurmas = [];
         $nomeCursos = [];
-        foreach($cursos as $item){
-        $nomeCursos [] = $item->nome;
-        $qtdTurmas [] = $item->turmas->count();
+
+        foreach ($cursos as $item) {
+            $nomeCursos[] = $item->nome;
+            $qtdTurmas[] = $item->turmas->count();
         }
 
         return (new LarapexChart)->pieChart()
             ->setTitle('Cursos Disponíveis')
-            ->setSubtitle('Season 2021.')
+            ->setSubtitle('Semestre 2026.2')
             ->addData($qtdTurmas)
             ->setLabels($nomeCursos);
     }

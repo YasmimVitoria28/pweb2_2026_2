@@ -18,8 +18,13 @@ class CategoriaAlunoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => $this->faker->unique()->randomElement(['FUNDAMENTAL', 'MÉDIO', 'GRADUAÇÃO', 'PÓS-GRADUAÇÃO']),//aqui é p vc definir o nome do aleatorio
-            'nivel' => fake()->numberBetween(1, 4), //define um intervalo
+            'nome' => $this->faker->unique()->randomElement([
+                'FUNDAMENTAL',
+                'MÉDIO',
+                'GRADUAÇÃO',
+                'PÓS-GRADUAÇÃO',
+            ]),
+            'nivel' => fake()->numberBetween(1, 4),
         ];
     }
 }

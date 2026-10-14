@@ -11,8 +11,8 @@
                     <label for="nome">Tipo</label>
                     <select name="tipo" class="form-select">
                         <option value="nome">Nome</option>
-                        <option value="requisito">Requisito</option>
-                        <option value="carga_horaria">Carga Horaria</option>
+                        <option value="cpf">CPF</option>
+                        <option value="telefone">Telefone</option>
                     </select>
                 </div>
                 <div class="col-5">
@@ -23,6 +23,9 @@
                     <button type="submit" class="btn btn-primary">Buscar</button>
                     <a href="{{ url('curso/create') }}" class="btn btn-success"> Novo</a>
                     <a href="{{ url('curso/report') }}" class="btn btn-danger"> Relatório</a>
+                    <a href="{{ url('curso/report-matriculados') }}" class="btn btn-danger"> Relatório Matrículados</a>
+                    <a href="{{ url('curso/chart') }}" class="btn btn-warning"> Gráfico </a>
+                    <a href="{{ url('curso/chart-qtd-aluno-curso-chart') }}" class="btn btn-warning"> Gráfico Matriculados </a>
                 </div>
             </div>
         </form>
@@ -36,9 +39,9 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">requisito</th>
-                    <th scope="col">carga_horaria</th>
-                    <th scope="col">valor</th>
+                    <th scope="col">Requisito</th>
+                    <th scope="col">Carga Horária</th>
+                    <th scope="col">Valor</th>
                     <th scope="col">Ação</th>
                     <th scope="col">Ação</th>
                 </tr>
@@ -52,14 +55,19 @@
                         <td>{{ $item->carga_horaria }}</td>
                         <td>{{ $item->valor }}</td>
                         <td>
-                            <a class='btn btn-warning' title='Editar' href="{{ route('curso.edit', $item->id) }}">Editar</a>
+                            <a class='btn btn-primary' title='Turmas' href="{{ route('curso.turmas', $item->id) }}">Ver
+                                Turmas {{ $item->turmas->count() }}</a>
+                        </td>
+                        <td>
+                            <a class='btn btn-warning' title='Editar'
+                                href="{{ route('curso.edit', $item->id) }}">Editar</a>
                         </td>
                         <td>
                             <form action="{{ route('curso.destroy', $item->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class='btn btn-danger' title='Exclur'
-                                    onclick='return confirm(\"Deseja Excluir?\")'>Deletar</button>
+                                    onclick="return confirm('Deseja Excluir?')">Deletar</button>
                             </form>
                         </td>
                     </tr>

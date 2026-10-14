@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Turma extends Model
 {
+    /** @use HasFactory<\Database\Factories\TurmaFactory> */
+    use HasFactory;
 
     protected $fillable = [
         'nome',
@@ -15,7 +17,8 @@ class Turma extends Model
         'data_inicio',
         'data_fim',
     ];
-    protected $casts = [
+
+    protected $cast = [
         'curso_id' => 'integer',
         'data_inicio' => 'date',
         'data_fim' => 'date',
@@ -25,7 +28,4 @@ class Turma extends Model
     {
         return $this->belongsTo(Curso::class, 'curso_id');
     }
-
-    
-
 }
