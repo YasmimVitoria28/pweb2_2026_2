@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Matricula;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Matricula;
 
 class MatriculaSeeder extends Seeder
 {

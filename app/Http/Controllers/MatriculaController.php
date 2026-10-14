@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoriaMatricula;
+use Illuminate\Http\Request;
 use App\Models\Matricula;
 use App\Models\Curso;
 use App\Models\Turma;
-use App\Models\Aluno;
-use Illuminate\Http\Request;
 
 class MatriculaController extends Controller
 {
@@ -19,26 +19,29 @@ class MatriculaController extends Controller
 
     function create()
     {
-        $cursos = Curso::orderBy('nome')->get();
-        $turmas = Turma::orderBy('nome')->get();
-        $alunos = Aluno::orderBy('nome')->get();
 
-        return view('matricula.form')->with(compact('cursos', 'turmas', 'alunos'));
+        $curso = Curso::orderBy('nome')->get();
+        $turma = Turma::orderBy('nome')->get();
+        $aluno = Aluno::orderBy('nome')->get();
+        return view('matricula.form')->with(compact('curso', 'turma', 'aluno'));
     }
 
 
+    //AQUI VAMOS FAZER A VALIDAÇÃO DA IMAGEM
+    //TEM QUE COLOCAR NO UPDATE TBM
     function validateForm(Request $request)
     {
         $request->validate([
-            'curso_id' => 'required|exists:cursos,id',
-            'turma_id' => 'required|exists:turmas,id',
-            'aluno_id' => 'required|exists:alunos,id',
+            'curso_id' => 'required|exists:curso,id',
+            'turma_id' => 'required|exists:turma,id',
+            'aluno_id' => 'r.equired|exists:aluno,id',
             'data_matricula' => 'required',
         ], [
-            'curso_id.required' => "O :attribute é obrigatorio",
-            'turma_id.required' => "O :attribute é obrigatorio",
-            'aluno_id.required' => "O :attribute é obrigatorio",
+            'nome.required' => "O :attribute é obrigatorio",
+            'turma.required' => "O :attribute é obrigatorio",
+            'aluno.required' => "O :attribute é obrigatorio",
             'data_matricula.required' => "O :attribute é obrigatorio",
+
         ]);
     }
 
@@ -47,9 +50,9 @@ class MatriculaController extends Controller
         //dd($request->all());
         $this->validateForm($request);
 
-        $data = $request->all();
+        $data = $request->all(); //vai puxar todos os dados salvos
 
-        Matricula::create($data);
+        Matricula::create($request->all());
 
         return redirect('matricula')->with("success", 'Registro Salvo com sucesso!');
     }
@@ -57,12 +60,15 @@ class MatriculaController extends Controller
     function edit($id)
     {
         $data = Matricula::find($id);
-        $cursos = Curso::orderBy('nome')->get();
-        $turmas = Turma::orderBy('nome')->get();
-        $alunos = Aluno::orderBy('nome')->get();
+        $curso = Curso::orderBy('nome')->get();
+        $turma = Turma::orderBy('nome')->get();
+        $aluno = Aluno::orderBy('nome')->get();
+        return view('matricula.form')->with(compact('curso', 'turma', 'aluno'));
+        // dd($data);
+        //return view('matricula.form')->with(['data' => $data]);
+        return view('matricula.form')->with(compact('data', 'curso', 'turma', 'aluno'));//tem que retornar assim se nn ele n puxa as categorias
 
-        // dd($categorias);
-        return view('matricula.form')->with(compact('data', 'cursos', 'turmas', 'alunos'));
+
     }
 
 
@@ -71,7 +77,7 @@ class MatriculaController extends Controller
         //dd($request->all());
         $this->validateForm($request);
 
-        $data = $request->all();
+        $data = $request->all(); //vai puxar todos os dados salvos
 
         Matricula::find($id)->update($data);
 
@@ -89,10 +95,9 @@ class MatriculaController extends Controller
     {
         if (!empty($request->valor)) {
             $query = Matricula::with(['curso', 'turma', 'aluno']);
-
             $valor = $request->valor;
 
-            $dados = $query->whereHas(
+            $query = whereHas(
                 $request->tipo,
                 function ($q) use ($valor) {
                     $q->where('nome', 'like', "%$valor%");

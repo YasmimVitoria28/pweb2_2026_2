@@ -4,13 +4,12 @@ namespace App\Charts;
 
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Illuminate\Support\Facades\DB;
-
 class QtdAlunoCursoChart
 {
     public function build(): \ArielMejiaDev\LarapexCharts\PieChart
     {
 
-        $qtdAlunoPorCurso = DB::table('matriculas')
+        $qtdAlunosPorCurso = DB::table('matriculas')
             ->join('cursos', 'cursos.id', '=', 'matriculas.curso_id')
             ->select('cursos.nome', DB::raw('count(1) as qtd_alunos'))
             ->groupBy('cursos.nome')
@@ -19,16 +18,16 @@ class QtdAlunoCursoChart
 
         $qtdAlunos = [];
         $nomeCursos = [];
-
-        foreach ($qtdAlunoPorCurso as $item) {
+        foreach ($qtdAlunosPorCurso as $item) {
             $nomeCursos[] = $item->nome;
             $qtdAlunos[] = $item->qtd_alunos;
         }
 
         return (new LarapexChart)->pieChart()
-            ->setTitle('Alunos matriculados por curso')
-            ->setSubtitle('Semestre 2026.2')
+            ->setTitle('Quantidade de Alunos por Alunos')
+            ->setSubtitle('Season 2021.')
             ->addData($qtdAlunos)
             ->setLabels($nomeCursos);
     }
 }
+

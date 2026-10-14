@@ -13,14 +13,13 @@ class Aluno extends Model
         'nome',
         'cpf',
         'telefone',
-        'imagem',
         'categoria_id',
+        'imagem', //é a primeira coisa que a gente faz, vamos fazer aql negocio de pedir uma imagem, depois vamos para a view ou controller
     ];
 
-    protected $cast = [
-        'categoria_id' => 'integer'
-    ];
+    protected $casts = ['categoria_id' => 'integer'];//converte a categoria_id em um campo inteiro //só para dados diferentes de string
 
+    //ao inves de aparecer a categoria vai apareccer o nome
     public function categoria()
     {
         return $this->belongsTo(CategoriaAluno::class, 'categoria_id');

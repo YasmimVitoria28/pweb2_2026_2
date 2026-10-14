@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\QtdAlunoCursoChart;
 use App\Models\Curso;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Charts\CursoChart;
-use App\Charts\QtdAlunoCursoChart;
+use Barryvdh\DomPDF\Facade\pdf;
+use App\Charts\Cursochart;
 
 class CursoController extends Controller
 {
@@ -23,18 +23,19 @@ class CursoController extends Controller
     }
 
 
+    //AQUI VAMOS FAZER A VALIDAÇÃO DA IMAGEM
+    //TEM QUE COLOCAR NO UPDATE TBM
     function validateForm(Request $request)
     {
         $request->validate([
             'nome' => 'required',
-            'requisito' => 'nullable|string',
-            'carga_horaria' => 'nullable|numeric',
-            'valor' => 'nullable|numeric',
+            'requisito' => 'nullabe|string',
+            'carga_horaria' => 'nullabe|numeric',
+            'valor' => 'nullabe|numeric',
         ], [
             'nome.required' => "O :attribute é obrigatorio",
-            'requisito.string' => "O :attribute deve ser caracter",
-            'carga_horaria.numeric' => "O :attribute deve ser númerico",
-            'valor.numeric' => "O :attribute deve ser númerico",
+            'requisito.string' => "O :attribute é caracter",
+            'carga_horaria.numeric' => "O :attribute é numeric",
         ]);
     }
 
@@ -43,9 +44,18 @@ class CursoController extends Controller
         //dd($request->all());
         $this->validateForm($request);
 
-        $data = $request->all();
+        $data = $request->all(); //vai puxar todos os dados salvos
+        $imagem = $request->file('imagem'); //puxa a imagem, pede a imagem
 
-        Curso::create($data);
+        //se existir a imagem ele passa pelo if e salva, se ão ele só pula e salva direto
+        if ($imagem) {
+            $nome_imagem = date('YmdiHs') . "." . $imagem->getClientOriginalExtension(); //salva a imagem como a data e hora quando ela foi salva para garantir que ela é unica +(.) a extensão dela
+            $diretorio = "imagem/curso/"; //escolhe onde a imagem vai ser salva
+            $imagem->storeAs($diretorio, $nome_imagem, 'public'); //função nativa do laravel paraa salvar, passa o caminho, a imagem e a classificação dela (public)
+            $data['imagem'] = $diretorio . $nome_imagem;
+        }
+
+        Curso::create($request->all());
 
         return redirect('curso')->with("success", 'Registro Salvo com sucesso!');
     }
@@ -54,16 +64,20 @@ class CursoController extends Controller
     {
         $data = Curso::find($id);
 
-        // dd($categorias);
-        return view('curso.form')->with(compact('data'));
+        // dd($data);
+        //return view('curso.form')->with(['data' => $data]);
+        return view('curso.form')->with(compact('data'));//tem que retornar assim se nn ele n puxa as categorias
+
+
     }
+
 
     function update(Request $request, $id)
     {
         //dd($request->all());
         $this->validateForm($request);
 
-        $data = $request->all();
+        $data = $request->all(); //vai puxar todos os dados salvos
 
         Curso::find($id)->update($data);
 
@@ -73,11 +87,9 @@ class CursoController extends Controller
     function destroy($id)
     {
         $curso = Curso::findOrFail($id);
-        // dd($curso->matriculas->count());
+        if(!empty($curso->matriculas() != null)) {
+            return redirect('curso')->with("error",'N foi possivel remover o curso  pois existem dados associados a ele');
 
-        if ($curso->matriculas->count() > 0) {
-            return redirect('curso')->with("error", "Não é possível remover o
-                    curso $curso->nome, pois existem dados associados a ele!");
         }
         Curso::destroy($id);
 
@@ -100,43 +112,56 @@ class CursoController extends Controller
     }
 
     public function report()
+
     {
+
         $curso = Curso::orderBy('nome')->get();
 
+  
+
         $data = [
-            'titulo' => 'Relatório Listagem de Cursos',
+
+            'titulo' => 'Listagem de Cursos',
+
             'date' => date('m/d/Y'),
+
             'dados' => $curso
-        ];
 
-        $pdf = Pdf::loadView('curso.report', $data);
+        ]; 
 
-        return $pdf->download('relatorio_cursos.pdf');
+            
+
+        $pdf = PDF::loadView('curso.report', $data);
+
+     
+
+        return $pdf->download('relatorio_curso.pdf');
+
     }
 
 
     public function reportMatriculados()
     {
         $curso = Curso::with('alunos.categoria')->orderBy('id')->get();
-
         $data = [
+
             'titulo' => 'Relatório Matriculados por Cursos',
+
             'date' => date('m/d/Y'),
+
             'dados' => $curso
-        ];
 
-        $pdf = Pdf::loadView('curso.reportMatriculados', $data);
+        ]; 
 
-        return $pdf->download('relatorio_alunos_matriculados_cursos.pdf');
+        $pdf = PDF::loadView('curso.reportMatriculados', $data);
+        return $pdf->download('relatorio_alunos_matriculados_curso.pdf');
+
     }
 
-    public function chart(CursoChart $chart)
-    {
+    public function chart(CursoChart $chart){
         return view('curso.chart', ['chart' => $chart->build()]);
     }
-
-    public function chartQtdAlunoCurso(QtdAlunoCursoChart $chart)
-    {
+    public function chartQtdAlunoCurso(QtdAlunoCursoChart $chart){
         return view('curso.qtdAlunoCursoChart', ['chart' => $chart->build()]);
     }
 }

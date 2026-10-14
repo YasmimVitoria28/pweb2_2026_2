@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Matricula;
 use App\Models\Curso;
 use App\Models\Turma;
 use App\Models\Aluno;
@@ -12,10 +13,15 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class MatriculaFactory extends Factory
 {
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         return [
-            'numero' => fake()->unique()->numerify('MT-######'),
+            'codigo' => fake()->unique()->numerify('MT-########'),
             'curso_id' => (Curso::All()->random())->id,
             'turma_id' => (Turma::All()->random())->id,
             'aluno_id' => (Aluno::All()->random())->id,

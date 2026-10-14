@@ -5,20 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Matricula extends Model
+class Turma extends Model
 {
-    /** @use HasFactory<\Database\Factories\MatriculaFactory> */
-    use HasFactory;
 
     protected $fillable = [
-        'numero',
+        'nome',
         'curso_id',
         'turma_id',
         'aluno_id',
         'data_matricula',
+        
     ];
-
-    protected $cast = [
+    protected $casts = [
         'curso_id' => 'integer',
         'turma_id' => 'integer',
         'aluno_id' => 'integer',
@@ -29,14 +27,13 @@ class Matricula extends Model
     {
         return $this->belongsTo(Curso::class, 'curso_id');
     }
-
     public function turma()
     {
         return $this->belongsTo(Turma::class, 'turma_id');
     }
-
     public function aluno()
     {
         return $this->belongsTo(Aluno::class, 'aluno_id');
     }
+
 }
