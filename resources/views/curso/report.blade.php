@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Laravel 9 Generate PDF Example - ItSolutionStuff.com</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>{{$titulo}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
+
 <body>
     <div class="row">
+        <h3>{{$titulo}}</h3>
 
-        <h3>Listagem de Cursos</h3>
     </div>
+
     <div class="row mt-4">
         <table class="table table-striped table-hover">
             <thead>
@@ -18,8 +23,6 @@
                     <th scope="col">Requisito</th>
                     <th scope="col">Carga Horária</th>
                     <th scope="col">Valor</th>
-                    <th scope="col">Ação</th>
-                    <th scope="col">Ação</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,26 +32,12 @@
                         <td>{{ $item->nome }}</td>
                         <td>{{ $item->requisito }}</td>
                         <td>{{ $item->carga_horaria }}</td>
-                        <td>{{ $item->valor }}</td>
-                        <td>
-                            <a class='btn btn-primary' title='Turmas'
-                                href="{{ route('curso.turmas', $item->id) }}">Ver Turmas {{ $item->turmas->count()}}</a>
-                        </td>
-                        <td>
-                            <a class='btn btn-warning' title='Editar' href="{{ route('curso.edit', $item->id) }}">Editar</a>
-                        </td>
-                        <td>
-                            <form action="{{ route('curso.destroy', $item->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class='btn btn-danger' title='Exclur'
-                                    onclick="return confirm('Deseja Excluir?')">Deletar</button>
-                            </form>
-                        </td>
+                        <td>R${{ $item->valor }}</td>
                     </tr>
-                
+                @endforeach
             </tbody>
         </table>
     </div>
 </body>
+
 </html>
